@@ -11,13 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.ui.activity.ListaNoticiasActivity
-import br.com.alura.technews.ui.activity.extensions.mostraErro
 import br.com.alura.technews.ui.fragment.extensions.mostraErro
 import br.com.alura.technews.ui.recyclerview.adapter.ListaNoticiasAdapter
 import br.com.alura.technews.ui.viewmodel.ListaNoticiasViewModel
 import kotlinx.android.synthetic.main.lista_noticias.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.lang.IllegalArgumentException
 
 private const val MENSAGEM_FALHA_CARREGAR_NOTICIAS = "Não foi possível carregar as novas notícias"
 
@@ -31,10 +29,8 @@ class ListaNoticiasFragment : Fragment() {
 
     private val viewModel: ListaNoticiasViewModel by viewModel()
 
-    private lateinit var listaNoticiasActivity: ListaNoticiasActivity
-
-    var quandoNoticiaSelecionada : (noticia: Noticia) -> Unit = {}
-    var quandoFabSalvaNoticiaClicado : () -> Unit = {}
+    var quandoNoticiaSelecionada: (noticia: Noticia) -> Unit = {}
+    var quandoFabSalvaNoticiaClicado: () -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
