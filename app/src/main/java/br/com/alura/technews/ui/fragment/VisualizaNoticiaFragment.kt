@@ -12,7 +12,6 @@ import br.com.alura.technews.ui.viewmodel.VisualizaNoticiaViewModel
 import kotlinx.android.synthetic.main.visualiza_noticia.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import java.lang.IllegalArgumentException
 
 private const val MENSAGEM_FALHA_REMOCAO = "Não foi possível remover notícia"
 private const val NOTICIA_NAO_ENCONTRADA = "Notícia não encontrada"
@@ -24,7 +23,7 @@ class VisualizaNoticiaFragment : Fragment() {
     }
     private val viewModel: VisualizaNoticiaViewModel by viewModel { parametersOf(noticiaId) }
 
-    var quandoSelecionaMenuEdicao: () -> Unit = {}
+    var quandoSelecionaMenuEdicao: (noticiaSelecionada: Noticia) -> Unit = {}
     var quandoFinalizaTela: () -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +49,9 @@ class VisualizaNoticiaFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.visualiza_noticia_menu_edita -> quandoSelecionaMenuEdicao()
+            R.id.visualiza_noticia_menu_edita -> {
+                viewModel.noticiaEncontrada.value?.let(quandoSelecionaMenuEdicao)
+            }
             R.id.visualiza_noticia_menu_remove -> remove()
         }
         return super.onOptionsItemSelected(item)
